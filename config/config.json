@@ -14,10 +14,11 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": "taalccnxt4ab64ym",
+    "password": "eaq9imkaa5fym3i5",
+    "database": "d8qfgjtwqkbq7oh5",
+    "host": "sq65ur5a5bj7flas.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+    "dialect": "mysql",
+    "use_env_variable": "JAWSDB_URL"
   }
 }

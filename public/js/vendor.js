@@ -24,22 +24,83 @@ $(document).ready(function () {
         wineSubmit(wineryID);
     });
 
+    $('body').on('click','.winery-addition',function(){
+        $('#wineriesmodalheader').text("Add Winery");
+        $('#wineriesmodalbtn').text("Add Winery");
+        $('#editwineriesmodal').modal('show');
+        $('#addwineriesmodalbtn').show();
+        $('#editwineriesmodalbtn').hide();
+
+    });
+
+    $('body').on('click', '#editwinery', function(){
+        let wineryid = $(this).attr("data")
+        console.log(wineryid);
+        getwinerydata(wineryid);
+        SubmitEditWinery(wineryid);
+    });
+
+
+
     $('body').on('click','.winery-event',function(){
         let wineryID = ($(this).attr("data"));
         $('#event-modal')[0].style.display = "block";
         eventSubmit(wineryID);
     });
 
-    $('body').on('click','.winery-addition',function(){
-        $('#winery-modal')[0].style.display = "block";        
-    });
+
     $('body').on('click','#reload-page',function(){
         location.reload();        
     });
 
     $('#editmodal').on('hidden.bs.modal', function () {
         $(this).find('form').trigger('reset'); 
+    });
+    $('#editwineriesmodal').on('hidden.bs.modal', function () {
+        $(this).find('form').trigger('reset'); 
     })
+
+//###### Editing Wineries ###########//
+
+    function getwinerydata(id){
+    $.get("/api/winerydata/" + id,function(data){
+        console.log(data)
+        modal_winery_edit(data);
+        $('#editwineriesmodal').modal("show");
+        $('#addwineriesmodalbtn').hide();
+        $('#editwineriesmodalbtn').show();
+        
+    })
+    };
+
+    function modal_winery_edit(data){
+
+        $('#wineryname-input').val(data[0].wineryname);
+        $('#wineaddress-input').val(data[0].wineaddress);
+        $('#winepostcode-input').val(data[0].winepostcode);
+        $('#winephone-input').val(data[0].winephone);
+        $('#wineemail-input').val(data[0].wineemail);
+        $('#wineriesmodalheader').text("Edit Winery");
+
+    };
+
+    function SubmitEditWinery(id){
+        $('body').on('click', '#editwineriesmodalbtn', function(){
+            const editwineriesData = {
+                name: $('#wineryname-input').val().trim(),
+                address: $('#wineaddress-input').val().trim(),
+                postcode: $('#winepostcode-input').val().trim(),
+                phone: $('#winephone-input').val().trim(),
+                email: $('#wineemail-input').val().trim(),
+            };
+            editwinery(editwineriesData, id);
+
+            $('#editwineriesmodal').modal('hide');
+            window.location.reload();
+        })
+    }
+
+
 
     //###### Editing & Deleting Wine ############//
 
@@ -139,9 +200,6 @@ $(document).ready(function () {
         
         deleteevent(x);
     })
-
-
-
 
     $.get("/api/user_data").then(function (data) {
         $(".member-name").text(data.user);
@@ -251,10 +309,21 @@ $(document).ready(function () {
     }
 
 
-
     function renderwineries(data) {
         const block = `<div class="card border-dark mb-3">
-               <div class="card-header">${data.wineryname}</div>
+                <div class="row">
+                <div class="col-8">
+                <div class="card-header">${data.wineryname}</div>
+                </div>
+        
+                <div class="col-4">
+                <div class="container d-flex">
+                <button class="btn btn-outline-dark my-3 ml-auto" id="editwinery" data=${data.id}>Edit Winery</button>
+                </div>
+                
+                </div>
+                </div>
+    
                <div class="card-body text-dark">                    
                     <div class="row">
                         <div class="col-sm-12 col-md-4 mb-3" >
@@ -391,8 +460,21 @@ $(document).ready(function () {
         }).catch(function(){
             console.log("API failure")
         });
-    }; 
+    };
+    
+//####### Edit winerie ###########//
 
+function editwinery(data, id){
+    $.ajax({
+        method: "PUT",
+        url:"/api/winery/" + id,
+        data: data
+    }).then(function(result){
+        console.log(result)
+    }).catch(function(err){
+        console.log(err)
+    })
+};
 
 //####### Edit wines ###########//
 

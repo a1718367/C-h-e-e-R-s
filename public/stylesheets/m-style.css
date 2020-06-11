@@ -67,15 +67,7 @@ form.signup,
 form.login {
   margin-top: 50px;
 }
-#wine-modal {
-  display:none;
-  position: fixed;
-  top:10%;
-  left:25%;
-  width:50%;
-  z-index: 1;
-  overflow: auto;
-}
+
 
 #event-modal{
   display:none;
@@ -86,15 +78,7 @@ form.login {
   z-index: 1;
   overflow: auto;
 }
-#winery-modal{
-    display:none;
-    position: fixed;
-    top:10%;
-    left:25%;
-    width:50%;
-    z-index: 1;
-    overflow: auto;
-  }
+
 .card-body{
   background-color:#dfd4d4 ;
 }

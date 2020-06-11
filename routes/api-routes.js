@@ -36,17 +36,6 @@ module.exports = function (app) {
       });
   });
 
-  //Add winery
-  app.post("/api/addwinery", function (req, res) {
-    db.Wineries.create(req.body).then(function (result) {
-      res.json(result);
-    }).catch(function (err) {
-      res.status(401).json(err);
-    });
-  });
-
-
-
   // Route for logging user out
   app.get("/logout", function (req, res) {
     req.logout();
@@ -76,7 +65,51 @@ module.exports = function (app) {
     }).then(function (result) {
       res.json(result)
     })
-  })
+  });
+
+
+
+  //Add winery
+  app.post("/api/addwinery", function (req, res) {
+    db.Wineries.create(req.body).then(function (result) {
+      res.json(result);
+    }).catch(function (err) {
+      res.status(401).json(err);
+    });
+  });
+  
+  
+//Get winery data
+  app.get("/api/winerydata/:id", function (req,res){
+    db.Wineries.findAll({
+      where: {
+        id:req.params.id
+      }
+    }).then(function(result){
+      res.json(result)
+    })
+  });
+
+  //Edit winery
+    app.put("/api/winery/:id", function(req,res){
+    
+      db.Wineries.update({
+        wineryname: req.body.name,
+        wineaddress: req.body.address,
+        winepostcode: req.body.postcode,
+        winephone: req.body.phone,
+        wineemail: req.body.email,
+      },{
+        where: {
+          id: req.params.id
+        }
+      }).then(function(result){
+        res.json(result);
+      }).catch(function(err){
+        res.json(err);
+      })
+    });
+
   //**************************************************************** */
   //   WINE API routes
   //**************************************************************** */
@@ -99,7 +132,7 @@ module.exports = function (app) {
   })
 
 
-  //GET roue for retrieving all wines by winery.
+  //GET route for retrieving all wines by winery.
   app.get("/api/wines/:id", function (req, res) {
     db.Wine.findAll({
       where: {
@@ -249,19 +282,6 @@ module.exports = function (app) {
     })
   })
 
-  // app.get("/api/wineries_name/Lukes", function (req, res) {
-  //   console.log("in api route")
-  //   db.Wineries.sequelize.query(`SELECT * FROM Wineries where locate(wineryname, "Lukes") > 0`, {
-  //       type: sequelize.QueryTypes.SELECT
-  //     })
-  //     .then(searchResult => {
-  //       console.log("API ROUTE firing")
-  //       console.log(searchResult)
-  //       res.json(searchResult)
-  //       // We don't need spread here, since only the results will be returned for select queries
-  //     })
-  //   // })
-  // })
 
 
 

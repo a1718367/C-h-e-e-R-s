@@ -188,19 +188,6 @@ module.exports = function (app) {
     })
   });
 
-    //Delete event
-    app.delete("/api/event/:id", function(req, res){
-      db.Event.destroy({
-        where: {
-          id: req.params.id
-        }
-      }).then(function(result){
-        res.json(result)
-      })
-    })
-
-
-
 
   //**************************************************************** */
   //   Event API routes
@@ -224,12 +211,66 @@ module.exports = function (app) {
   app.get("/api/events/:id", function (req, res) {
     db.Event.findAll({
       where: {
-        WineryId: req.params.id
+        WineryId: req.params.id,
+        current: true
       }
     }).then(function (result) {
       res.json(result)
     })
+  });
+
+  app.get("/api/eventdata/:id", (req, res)=>{
+    db.Event.findAll({
+      where:{
+        id: req.params.id,
+      }
+    }).then(function(result){
+      res.json(result)
+    })
+  });
+
+  app.put("/api/event/:id", function(req,res){    
+    db.Event.update({
+      eventname: req.body.eventname,
+      time: req.body.time,
+      date: req.body.date,
+      capacity: req.body.capacity,
+    },{
+      where: {
+        id: req.params.id
+      }
+    }).then(function(result){
+      res.json(result);
+    }).catch(function(err){
+      res.json(err);
+    })
+  });
+
+  app.put("/api/eventdelete/:id", function(req,res){
+    db.Event.update({
+      current: false
+    },{
+      where: {
+        id:req.params.id
+      }
+    }).then(function(result){
+      res.json(result);
+    }).catch(function(err){
+      res.json(err);
+    })
   })
+
+
+    //Delete event
+    app.delete("/api/event/:id", function(req, res){
+      db.Event.destroy({
+        where: {
+          id: req.params.id
+        }
+      }).then(function(result){
+        res.json(result)
+      })
+    })  
   //**************************************************************** */
   //   Booking API routes
   //**************************************************************** */

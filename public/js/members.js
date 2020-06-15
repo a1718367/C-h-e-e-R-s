@@ -9,6 +9,35 @@ $(document).ready(function () {
     $(".member-name").text(data.email);
   });
 
+  $.get("/api/wineries").then(function(data){
+    console.log(data)
+    data.forEach(element => {
+      const wineries = renderwineries(element);
+      $('#results-container').append(wineries);
+    });
+  });
+
+  $("#search-for-winery-btn").on("click", searchForWinery)
+
+
+  function renderwineries(data){
+    const block = `
+    <div class="card border-success">
+    <img class="card-img-top" src="./old/assets/img/grapevine.jpg" alt="card image">
+    <div class="card-body text-dark">
+    <div class="card-title">${data.wineryname}</div>
+    <div class="card-text">Address:</div>
+    <div class="card-text">${data.wineaddress}, ${data.winepostcode}</div>
+    <div class="card-text">Email:</div>
+    <div class="card-text">${data.wineemail}</div>
+    <div class="card-text">Phone:</div>
+    <div class="card-text">${data.winephone}</div>
+    </div>
+    
+    </div>`
+    return block
+  }
+
   function searchForWinery(event) {
     event.preventDefault();
     let wineryname = searchedWinery.val().trim();
@@ -31,7 +60,7 @@ $(document).ready(function () {
       console.log(data)
     }).then(function (data) {
       data.forEach(element => {
-        const wineries = displayWineries(element);
+        const wineries = renderwineries(element);
         $('#results-container').append(wineries)
       });
     })
@@ -39,7 +68,7 @@ $(document).ready(function () {
 
   function displayWineries(data) {
     let wineryCard = `
-    <div class="col-md-3">
+    <div class="col-4">
       <div class="card border-dark m-2">
         <img src="./old/assets/img/grapevine.jpg" class="card-img-top" alt="Grapes on a vine">
         <div class="card-body">
@@ -58,7 +87,7 @@ $(document).ready(function () {
   }
 
 
-  $("#search-for-winery-btn").on("click", searchForWinery)
+  
 
 
 });

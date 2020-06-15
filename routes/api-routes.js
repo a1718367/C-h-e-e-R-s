@@ -285,8 +285,21 @@ module.exports = function (app) {
 
 
 
+//********************************/
+// CLIENT SIDE LOGIC
+//********************************/
+// Show all wineries in db
 
-  // CLIENT SIDE LOGIC
+app.get("/api/wineries", (req,res)=>{
+  db.Wineries.findAll({
+
+  }).then(function(result){
+    res.json(result);
+  }).catch(function(err){
+    res.json(err);
+  });
+});
+
   app.get("/api/wineries_name/:wineryname", function (req, res) {
     console.log("in api route" + req.params.wineryname)
     var userSearchValue = req.params.wineryname

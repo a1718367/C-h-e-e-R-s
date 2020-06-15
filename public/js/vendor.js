@@ -75,6 +75,7 @@ $(document).ready(function () {
         $('#winephone-input').val(data[0].winephone);
         $('#wineemail-input').val(data[0].wineemail);
         $('#wineryimage-input').val(data[0].wineryimage);
+        $('#winerydesc-input').val(data[0].winerydesc);
         $('#wineriesmodalheader').text("Edit Winery");
 
     };
@@ -275,10 +276,11 @@ $(document).ready(function () {
                 wineryphone: $('#winephone-input').val().trim(),
                 wineryemail: $('#wineemail-input').val().trim(),
                 wineryimage: $('#wineryimage-input').val().trim(),
+                winerydesc: $('#winerydesc-input').val().trim(),
                 userid: memberid,
             }
             console.log(wineryData);
-            addwinery(wineryData.wineryname, wineryData.wineryaddress, wineryData.winerypostcode, wineryData.wineryphone, wineryData.wineryemail, wineryData.wineryimage,wineryData.userid)
+            addwinery(wineryData.wineryname, wineryData.wineryaddress, wineryData.winerypostcode, wineryData.wineryphone, wineryData.wineryemail, wineryData.wineryimage,wineryData.winerydesc ,wineryData.userid)
 
         });
 
@@ -286,7 +288,7 @@ $(document).ready(function () {
 
     })
 
-    function addwinery(name, address, postcode, phone, email, image, id) {
+    function addwinery(name, address, postcode, phone, email, image, desc, id) {
         $.post("/api/addwinery", {
             wineryname: name,
             wineaddress: address,
@@ -294,6 +296,7 @@ $(document).ready(function () {
             winephone: phone,
             wineemail: email,
             wineryimage: image,
+            winerydesc: desc,
             FK_Userid: id,
         }).then(function (data) {
             console.log(data)
@@ -393,6 +396,8 @@ $(document).ready(function () {
                             <p class="card-text">Email: ${data.wineemail}</p>
                             <p class="card-text">Phone: ${data.winephone}</p>
                             <img src="${data.wineryimage}" class="img-thumbnail" alt="winery image">
+                            <div class="card-text">Description</div>
+                            <p class="card-text">${data.winerydesc}</p>
                             <button type="submit" class="btn btn-primary wine-input mt-2" data=${data.id}>Add a wine</button>
                             <button type="submit" class="btn btn-primary winery-event mt-2" data=${data.id}>Add a calendar event</button>
                         </div>

@@ -100,6 +100,7 @@ module.exports = function (app) {
         winephone: req.body.phone,
         wineemail: req.body.email,
         wineryimage: req.body.wineryimage,
+        winerydesc: req.body.winerydesc,
       },{
         where: {
           id: req.params.id

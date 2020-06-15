@@ -35,7 +35,10 @@ module.exports = function(sequelize, DataType){
             type: DataType.STRING,
             allowNull: false
         },
-        
+        winerydesc: {
+            type: DataType.STRING,
+            allowNull:true
+        },
         FK_Userid:{
             type: DataType.STRING,
         }

@@ -30,6 +30,12 @@ module.exports = function(sequelize, DataType){
                 isEmail: true
             }
         },
+
+        wineryimage: {
+            type: DataType.STRING,
+            allowNull: false
+        },
+        
         FK_Userid:{
             type: DataType.STRING,
         }

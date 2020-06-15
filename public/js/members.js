@@ -23,7 +23,7 @@ $(document).ready(function () {
   function renderwineries(data){
     const block = `
     <div class="card border-success">
-    <img class="card-img-top" src="./old/assets/img/grapevine.jpg" alt="card image">
+    <img class="card-img-top" src="${data.wineryimage}" alt="card image">
     <div class="card-body text-dark">
     <div class="card-title">${data.wineryname}</div>
     <div class="card-text">Address:</div>

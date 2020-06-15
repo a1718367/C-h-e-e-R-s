@@ -99,6 +99,7 @@ module.exports = function (app) {
         winepostcode: req.body.postcode,
         winephone: req.body.phone,
         wineemail: req.body.email,
+        wineryimage: req.body.wineryimage,
       },{
         where: {
           id: req.params.id

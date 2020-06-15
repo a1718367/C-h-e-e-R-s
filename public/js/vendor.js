@@ -74,6 +74,7 @@ $(document).ready(function () {
         $('#winepostcode-input').val(data[0].winepostcode);
         $('#winephone-input').val(data[0].winephone);
         $('#wineemail-input').val(data[0].wineemail);
+        $('#wineryimage-input').val(data[0].wineryimage);
         $('#wineriesmodalheader').text("Edit Winery");
 
     };
@@ -86,6 +87,7 @@ $(document).ready(function () {
                 postcode: $('#winepostcode-input').val().trim(),
                 phone: $('#winephone-input').val().trim(),
                 email: $('#wineemail-input').val().trim(),
+                wineryimage: $('#wineryimage-input').val().trim(),
             };
             editwinery(editwineriesData, id);
 
@@ -272,28 +274,26 @@ $(document).ready(function () {
                 winerypostcode: $('#winepostcode-input').val().trim(),
                 wineryphone: $('#winephone-input').val().trim(),
                 wineryemail: $('#wineemail-input').val().trim(),
+                wineryimage: $('#wineryimage-input').val().trim(),
                 userid: memberid,
             }
             console.log(wineryData);
-            addwinery(wineryData.wineryname, wineryData.wineryaddress, wineryData.winerypostcode, wineryData.wineryphone, wineryData.wineryemail, wineryData.userid)
-            wname.val("");
-            waddress.val("");
-            wpostcode.val("");
-            wphone.val("");
-            wemail.val("");
+            addwinery(wineryData.wineryname, wineryData.wineryaddress, wineryData.winerypostcode, wineryData.wineryphone, wineryData.wineryemail, wineryData.wineryimage,wineryData.userid)
+
         });
 
         getwineries(memberid)
 
     })
 
-    function addwinery(name, address, postcode, phone, email, id) {
+    function addwinery(name, address, postcode, phone, email, image, id) {
         $.post("/api/addwinery", {
             wineryname: name,
             wineaddress: address,
             winepostcode: postcode,
             winephone: phone,
             wineemail: email,
+            wineryimage: image,
             FK_Userid: id,
         }).then(function (data) {
             console.log(data)
@@ -392,6 +392,7 @@ $(document).ready(function () {
                             <p class="card-text">Address: ${data.wineaddress}</p>
                             <p class="card-text">Email: ${data.wineemail}</p>
                             <p class="card-text">Phone: ${data.winephone}</p>
+                            <img src="${data.wineryimage}" class="img-thumbnail" alt="winery image">
                             <button type="submit" class="btn btn-primary wine-input mt-2" data=${data.id}>Add a wine</button>
                             <button type="submit" class="btn btn-primary winery-event mt-2" data=${data.id}>Add a calendar event</button>
                         </div>

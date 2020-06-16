@@ -21,21 +21,34 @@ $(document).ready(function () {
 
 
   function renderwineries(data){
-    const block = `
-    <div class="card border-success">
+    const block = `<div class="col-md-4 card-container mb-2">
+    <div class="card-flip">
+    <div class="card front">
     <img class="card-img-top" src="${data.wineryimage}" alt="card image">
     <div class="card-body text-dark">
     <div class="card-title">${data.wineryname}</div>
-    <div class="card-text">Address:</div>
+    <div class="card-text">${data.winerydesc}</div>
+    
+    </div>
+    </div>
+    <div class="card back">
+    <div class="card-body text-dark>
+    <div class="card-text">
+    <div>Address:<div>
     <div class="card-text">${data.wineaddress}, ${data.winepostcode}</div>
-    <div class="card-text">Email:</div>
+    <div>Email:</div>
     <div class="card-text">${data.wineemail}</div>
-    <div class="card-text">Phone:</div>
+    <div>Phone:</div>
     <div class="card-text">${data.winephone}</div>
     </div>
     
+    </div>
+    </div>
+    </div>
     </div>`
     return block
+
+
   }
 
   function searchForWinery(event) {

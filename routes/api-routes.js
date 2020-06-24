@@ -324,8 +324,8 @@ app.get("/api/wineries", (req,res)=>{
       type: sequelize.QueryTypes.SELECT
     }).then(function (result) {
       res.json(result)
-    })
-  })
+    });
+  });
 
 
   app.get("/api/wines/:id", function (req, res) {
@@ -335,9 +335,25 @@ app.get("/api/wineries", (req,res)=>{
       }
     }).then(function (result) {
       res.json(result)
-    })
-  })
+    });
+  });
 
+  // app.get("/api/enterwinery/:id",function(req,res){
+  //   db.Wineries.findOne({
+  //     where: {
+  //       id:req.params.id
+  //     },
+  //     include: [db.Wine, db.Event]
+  //   }).then(function(result){
+  //     const data = result.get();
+  //     data.Wines = data.Wines.map((wine)=>wine.get());
+  //     data.Events = data.Events.map((event)=>event.get());
+  //     res.render("winery", {data:data})
+      
+  //   })
+  // });
+
+  
 
 
 

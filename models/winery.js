@@ -52,13 +52,11 @@ module.exports = function(sequelize, DataType){
     //     });
     // };
 
-    Wineries.associate = function(models){
-        Wineries.hasMany(models.Event,{
+    Wineries.associate = function (models) {
+        Wineries.hasMany(models.Event, {
             onDelete: "cascade"
         });
-    };
-    Wineries.associate = function(models){
-        Wineries.hasMany(models.Wine,{
+        Wineries.hasMany(models.Wine, {
             onDelete: "cascade"
         });
     };

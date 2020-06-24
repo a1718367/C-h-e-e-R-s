@@ -3,7 +3,7 @@ module.exports = function(sequelize, DataType){
         numberbooked:{
             type: DataType.NUMERIC,
             allowNull: false
-        }
+        },
     
     });
 

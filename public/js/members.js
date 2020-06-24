@@ -17,31 +17,41 @@ $(document).ready(function () {
     });
   });
 
-  $("#search-for-winery-btn").on("click", searchForWinery)
+  $("#search-for-winery-btn").on("click", searchForWinery);
+
+  // $('body').on('click','.enterwinery',function(){
+  //   let x = $(this).attr("data")
+  //   console.log(x)
+  //   enterwinery(x)
+    
+  // })
 
 
   function renderwineries(data){
-    const block = `<div class="col-md-4 card-container mb-2">
+    const block = `
+    <div class="col-md-4 card-container mb-2">
     <div class="card-flip">
     <div class="card front">
     <img class="card-img-top" src="${data.wineryimage}" alt="card image">
-    <div class="card-body text-dark">
+    <div class="card-body winerycard text-dark">
     <div class="card-title">${data.wineryname}</div>
     <div class="card-text">${data.winerydesc}</div>
     
     </div>
     </div>
     <div class="card back">
-    <div class="card-body text-dark>
+    <img class="card-img-top" src="${data.wineryimage}" alt="card image">
+    <div class="card-body winerycard text-dark">
     <div class="card-text">
+    <div class="card-title">${data.wineryname}</div>
     <div>Address:<div>
     <div class="card-text">${data.wineaddress}, ${data.winepostcode}</div>
     <div>Email:</div>
     <div class="card-text">${data.wineemail}</div>
     <div>Phone:</div>
     <div class="card-text">${data.winephone}</div>
+    <a href="/winerypage/${data.id}"><button class="btn btn-block btn-secondary enterwinery mt-3" data="${data.id}">Enter</button></a>
     </div>
-    
     </div>
     </div>
     </div>
@@ -49,6 +59,24 @@ $(document).ready(function () {
     return block
 
 
+  }
+
+
+
+  function enterwinery(id){
+    $.get("/api/enterwinery/" + id,function(){
+
+    }).then(function(result){
+      
+      console.log(result)
+      // const enterwinery = wineryblock(result);
+      // $("#results-container").empty()
+      // $('#results-container').append(enterwinery)
+
+
+    }).catch(function(err){
+      console.log(err)
+    })
   }
 
   function searchForWinery(event) {
@@ -79,28 +107,7 @@ $(document).ready(function () {
     })
   };
 
-  function displayWineries(data) {
-    let wineryCard = `
-    <div class="col-4">
-      <div class="card border-dark m-2">
-        <img src="./old/assets/img/grapevine.jpg" class="card-img-top" alt="Grapes on a vine">
-        <div class="card-body">
-          <h5 class="card-title" data=${data.id}>${data.wineryname}</h5>
-          <p><strong>Location:</strong></p>
-          <p class="card-text">${data.wineaddress}, ${data.winepostcode}
-          </p>
-          <p class="card-text"><strong>PH: ${data.winephone}</strong>
-          <p class="card-text">${data.wineemail}</p>
-          <button class="btn btn-primary" id="enter-winery-btn" data=${data.id}>View this winery!</button>
-        </div>
-      </div>
-    </div>
-  </div>`
-    return wineryCard
-  }
 
-
-  
 
 
 });

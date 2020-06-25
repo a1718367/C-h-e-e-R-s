@@ -16,13 +16,14 @@ module.exports = function(sequelize, DataType){
                 allowNull: false
             }
         });
+        Order.belongsTo(models.Wine, {
+            foreignKey:{
+                allowNull: false
+            }
+        })
     }
     
-    Order.associate = function(models){
-        Order.hasMany(models.Wine,{
-            onDelete: "cascade"
-        });
-    };
+
     
     return Order;
 

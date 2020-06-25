@@ -3,10 +3,12 @@ $(document).ready(function () {
   // and updates the HTML on the page
   searchedWinery = $("#winery-search");
 
-
+  let memberid;
 
   $.get("/api/user_data").then(function (data) {
     $(".member-name").text(data.email);
+    memberid = data.id;
+    return memberid;
   });
 
   $.get("/api/wineries").then(function(data){
@@ -19,12 +21,63 @@ $(document).ready(function () {
 
   $("#search-for-winery-btn").on("click", searchForWinery);
 
-  // $('body').on('click','.enterwinery',function(){
-  //   let x = $(this).attr("data")
-  //   console.log(x)
-  //   enterwinery(x)
-    
+
+
+//####### Booking Event ###########//
+
+$('body').on('click','.bookingbtn',function(){
+  let x = $(this).attr("data")
+  console.log(x)
+  console.log(memberid)
+  // booking(10,memberid,x)
+  eventbooking(x)
+
+  $('form.bookevent').on('submit', function(event){
+    event.preventDefault();
+    const numbooked = $('#numbook-input').val().trim();
+    booking(numbooked,memberid,x)
+    $('#bookingmodal').modal('hide')
+
+  })
+  // $('body').on('click','#bookeventmodalbtn',function(){
+  //   const numbooked = $('#numbook-input').val().trim()
+  //   booking(numbooked,memberid,x)
   // })
+})
+  
+
+
+function booking(numbooked,mid, eid){
+  $.post("/api/createBooking", {
+    numberbooked: numbooked,
+    UserId: mid,
+    EventId: eid
+  }).then(function(data){
+    console.log(data)
+  })
+}
+
+$('#bookingmodal').on('hidden.bs.modal', function () {
+  $(this).find('form').trigger('reset'); 
+});
+
+function eventbooking(id){
+  $.get("/api/eventdata/" + id,function(data){
+      console.log(data)
+      populateeventbooking(data);
+      $('#bookingmodal').modal("show");
+
+      
+  });
+};
+
+function populateeventbooking(data){
+  $('#bookingeventname').text(`${data[0].eventname}`);
+  $('#bookingeventdate').text(`${data[0].date}`);
+  $('#bookingeventtime').text(`${data[0].time}`);  
+}
+
+//####### Booking Event ###########//
 
 
   function renderwineries(data){
@@ -111,3 +164,10 @@ $(document).ready(function () {
 
 
 });
+
+  // $('body').on('click','.enterwinery',function(){
+  //   let x = $(this).attr("data")
+  //   console.log(x)
+  //   enterwinery(x)
+    
+  // })

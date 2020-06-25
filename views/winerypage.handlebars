@@ -1,60 +1,105 @@
-<br>
+
+<div class="jumbotron jumbotron-fluid">
+        
+            <h1 class="display-4">Welcome to {{data.wineryname}}</h1>
+            <p class="lead">{{data.winerydesc}}</p>
+        
+</div>
+
+
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h2 class="TitleStyle">Welcome to {{data.wineryname}}</h2>
+
+    <div class="row my-3">
+        <div class="col-8">
+            
+        <h2 id="member">Welcome <span class="member-name"></span></h2>            
         </div>
-    </div>
-    <div class="row">
-        <div class="col-7">
-            <h3 class="TitleStyle mb-4">Wine Selection</h3>
+        <div class="col-4 d-flex">
+            <a class="btn btn-outline-dark ml-auto" href="/logout"> Logout</a>
         </div>
-        <div class="col-5">
-            <h3 class="TitleStyle mb-4">Up-Coming Events</h3>
-        </div>
+
     </div>
 
+
+
     <div class="row">
-        <div class="col-7">
+        <div class="col-sm-12 col-md-7">
+            <h2>Wines Selection</h2>
             {{#each data.Wines}}
-            <div class="card mb-3">
-                <div class="row no-gutters">
-                    <div class="col-md-4">
-                        {{!-- <img src="/old/assets/img/werypR.png" class="card-imgw" alt="IMAGE NOT WORKING"> --}}
+
+            <div class="card">
+                <div class="row">
+                    <div class="col-3 d-flex">
+                        <img class="img-fluid mx-auto my-auto" src={{wineimage}} alt="wine image" id="wineimage">
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-9">
                         <div class="card-body">
-                            <h5 class="card-title"><strong>{{winename}}, {{year}}</strong></h5>
-                            <h3 class="card-title">{{variety}}</h3>
-                            <p class="card-text">{{description}}</p>
-                            <h6 class="card-text text-muted">${{price}} AUD <button
-                                    class="btn btn-primary">Purchase</button></h6>
+                        <h4 class="card-title">{{winename}}, {{year}}</h4>
+                        <h3 class="card-text">{{variety}}</h3>
+                        <p class="card-text">{{description}}</p>
+                        <p class="card-text">AUD ${{price}}</p>
+                        {{!-- <a href="#" class="btn btn-primary">Order</a> --}}
                         </div>
                     </div>
                 </div>
             </div>
+
             {{/each}}
 
         </div>
 
-        <div class="col-5">
+        <div class="col-sm-12 col-md-5">
+            <h2>Events</h2>
             {{#each data.Events}}
-            {{#unless isPast}}
+            {{#if current}}
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">{{eventname}}</li>
-                <li class="list-group-item">{{time}}</li>
-                <li class="list-group-item">{{date}}</li>
-                <li class="list-group-item"><button class="btn btn-primary">Book this event!</button></li>
+                <li class="list-group-item">Name: {{eventname}}</li>
+                <li class="list-group-item">Date: {{date}}</li>
+                <li class="list-group-item">Time: {{time}}</li>
+                <li class="list-group-item"><button class="btn btn-primary bookingbtn" data={{id}}>Book this event!</button></li>
             </ul>
-            {{/unless}}
+            {{/if}}
             {{/each}}
         </div>
     </div>
 </div>
 <br>
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
+
+{{!-- Booking form --}}
+
+      <!-- The Modal -->
+      <div class="modal fade" id="bookingmodal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+          
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title" id="bookingmodalheader">Events Booking</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body">
+    <form class="bookevent">
+      <div class="container my-3">
+            <div>Event Name: <span id="bookingeventname"></span></div>
+            <div>Event Date: <span id="bookingeventdate"></span></div>
+            <div>Event Time: <span id="bookingeventtime"></span></div>
+      </div>
+      <div class="form-group">
+        <label for="exampleEventCap">Number to Book</label>
+        <input type="number" class="form-control" id="numbook-input" placeholder="Capacity">
+      </div>      
+                  <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary" id="bookeventmodalbtn">Book Event</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+    </form>
+            </div>
+            
+
+            
+          </div>
         </div>
-    </div>
-</nav>
+      </div>

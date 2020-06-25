@@ -21,6 +21,7 @@ module.exports = function(sequelize, DataType){
             len: [3,20]
             }
         },
+        
     description:{
         type:DataType.STRING,
         allowNull: false,

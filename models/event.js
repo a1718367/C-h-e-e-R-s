@@ -47,14 +47,15 @@ module.exports = function(sequelize, DataType){
     // };
     
     Event.associate = function (models) {
-        Event.belongsToMany(models.User, {
-                through: 'Bookings',
-                as: 'Users',
-                foreignKey: {
-                    allowNull: false
-                },
-                otherKey: "UserID"
-            }),
+        Event.hasMany(models.Booking);
+        // Event.belongsToMany(models.User, {
+        //         through: 'Bookings',
+        //         as: 'Users',
+        //         foreignKey: {
+        //             allowNull: false
+        //         },
+        //         otherKey: "UserID"
+        //     }),
             Event.belongsTo(models.Wineries, {
                 foreignKey: {
                     allowNull: false

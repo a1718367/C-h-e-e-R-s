@@ -149,6 +149,7 @@ $(document).ready(function () {
         $('#winename-input').val(`${data[0].winename}`);
         $('#winevariety-input').val(`${data[0].variety}`);
         $('#wineyear-input').val(`${data[0].year}`);
+        $('#wineimage-input').val(`${data[0].wineimage}`);
         $('#winedescription-input').val(`${data[0].description}`);
         $('#wineprice-input').val(`${data[0].price}`);
         $('#winemodalheader').text("Edit Wine");
@@ -165,6 +166,7 @@ $(document).ready(function () {
                 name: $('#winename-input').val().trim(),
                 variety: $('#winevariety-input').val().trim(),
                 year: $('#wineyear-input').val().trim(),
+                wineimage: $('#wineimage-input').val().trim(),
                 description: $('#winedescription-input').val().trim(),
                 price: $('#wineprice-input').val().trim(),
             };
@@ -452,6 +454,7 @@ $(document).ready(function () {
             winename: $('#winename-input').val().trim(),
             winevariety: $('#winevariety-input').val().trim(),
             wineyear: $('#wineyear-input').val().trim(),
+            wineimage: $('#wineimage-input').val().trim(),
             winedescription: $('#winedescription-input').val().trim(),
             wineprice: $('#wineprice-input').val().trim(),
             wineryid: winery,
@@ -459,7 +462,7 @@ $(document).ready(function () {
 
         console.log(wineData);
         
-        addwine(wineData.winename,wineData.winevariety,wineData.wineyear,wineData.winedescription,wineData.wineprice,wineData.wineryid);
+        addwine(wineData.winename,wineData.winevariety,wineData.wineyear,wineData.wineimage ,wineData.winedescription,wineData.wineprice,wineData.wineryid);
         $('#editmodal').modal("hide");
 
     })
@@ -467,12 +470,13 @@ $(document).ready(function () {
 
     //function to post wine to the database via /api/addwine route
     
-    function addwine(name,variety,year,description,price,id){
+    function addwine(name,variety,year,image,description,price,id){
         console.log("Wine Submitted");
         $.post("/api/addwine/", {
             winename:name,
             variety:variety,
             year:year,
+            wineimage:image,
             description: description,
             price: price,
             WineryId: id,

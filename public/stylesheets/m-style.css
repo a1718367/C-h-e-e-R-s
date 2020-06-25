@@ -140,7 +140,7 @@ body
   grid-area: frontAndBack;
   transform: rotateY(-180deg);
 }
-.card-container {
-  display: grid;
-  perspective: 700px;
+#wineimage{
+  max-height: 180px;
+  
 }

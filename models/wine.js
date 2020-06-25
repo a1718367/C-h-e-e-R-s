@@ -21,6 +21,10 @@ module.exports = function(sequelize, DataType){
             min: 1970
             }
         },
+    wineimage: {
+            type: DataType.STRING,
+            allowNull: false
+        },        
     description:{
         type:DataType.STRING,
         allowNull: false,
@@ -48,6 +52,7 @@ module.exports = function(sequelize, DataType){
     }
     */
     Wine.associate = function(models){
+        Wine.hasMany(models.Order);
         Wine.belongsTo(models.Wineries,{
             foreignKey:{
                 allowNull: false

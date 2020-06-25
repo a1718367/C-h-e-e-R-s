@@ -222,6 +222,27 @@ module.exports = function (app) {
     })
   });
 
+  app.get("/api/eventsbooking/:id", function (req, res) {
+    db.Wineries.findAll({
+      where: {
+        id: req.params.id,
+
+      },
+      include: [
+        {model: db.Event,
+        where:{
+          current: true
+        },
+        include: [
+          {model: db.Booking,attributes:["numberbooked"]}
+        ]
+      }
+      ]
+    }).then(function (result) {
+      res.json(result)
+    })
+  });
+
   app.get("/api/eventdata/:id", (req, res)=>{
     db.Event.findAll({
       where:{
@@ -296,6 +317,20 @@ module.exports = function (app) {
     db.Booking.create(req.body).then(function (result) {
       res.json(result);
     }).catch(function (err) {
+      res.status(401).json(err);
+    });
+  });
+
+  app.get("/api/bookingnumber/:id", function (req,res){
+    db.Booking.findAll({
+      where:{
+        EventId: req.params.id
+      },
+      attributes:['numberbooked']
+
+    }).then(function(data){
+      res.json(data);
+    }).catch(function (err){
       res.status(401).json(err);
     });
   });

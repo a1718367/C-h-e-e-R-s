@@ -197,3 +197,43 @@
           </div>
         </div>
       </div>
+
+{{!-- Bookings --}}
+
+      <!-- The Modal -->
+      <div class="modal fade" id="editbookingsmodal">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+          
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title" id="vbookingmodalheader">Booking List</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body">
+              <table class="table">
+                <div>Total Number Booked: <span id="totalbooked"></span></div>
+                <tr>
+                  <th scope="col">Patron</th>
+                  <th scope="col">Number Booked</th>
+
+                </tr>
+                <tbody id="bookinglistdata">
+
+                </tbody>
+
+              </table>
+
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+          
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+            
+          </div>
+        </div>
+      </div>      

@@ -51,9 +51,10 @@ $(document).ready(function () {
     $('#editwineriesmodal').on('hidden.bs.modal', function () {
         $(this).find('form').trigger('reset'); 
     });
-    $('#editeventssmodal').on('hidden.bs.modal', function () {
-        $(this).find('form').trigger('reset'); 
+    $('#editbookingsmodal').on('hidden.bs.modal', function () {
+        $(this).find('#bookinglistdata').html("");
     });
+
 
 //###### Editing Wineries ###########//
 
@@ -216,6 +217,7 @@ $(document).ready(function () {
         let x = $(this).attr("data")
         geteventdata(x);
         SubmitEditEvent(x)
+        test(x);
 
     });
 
@@ -261,15 +263,44 @@ $(document).ready(function () {
 
     //###### View Booking ############//
 
-    // $('body').on('click', '#bookingevent', function(){
-    //     let eventid = $(this).attr('data')
-    //     console.log(eventid)
-    //     eventbooking(eventid)
+    $('body').on('click', '#bookingevent', function(){
+        let eventid = $(this).attr('data')
+        console.log(eventid);
+        eventbooking(eventid);
+        $('#editbookingsmodal').modal("show")
         
-    // })
+    })
 
     function eventbooking(id){
         $.get("/api/eventbookings/" + id, function(data){
+            console.log(data)
+            let sum = 0
+
+
+
+            data.forEach(element => {
+                let x = parseInt(element.numberbooked)
+                sum += x
+                const bookingsdata = renderbookinglist(element);
+                $('#bookinglistdata').append(bookingsdata);
+                return sum
+            });
+            $('#totalbooked').text(sum)
+        })
+    }
+
+    function renderbookinglist(data){
+        const block = `
+        <tr>
+        <td>${data.User.email}</td>
+        <td>${data.numberbooked}</td>
+        </tr>
+        `
+        return block
+    }
+
+    function test(id){
+        $.get("/api/eventsbooking/" + id, function(data){
             console.log(data)
         })
     }
@@ -385,7 +416,8 @@ $(document).ready(function () {
                 <td>
                 <span>
                 <button class="btn btn-secondary editevent" id="editevent" data=${element.id}>Edit</button>
-                <a href="/bookings/${element.id}"<button class="btn btn-secondary bookingevent" id="bookingevent" data=${element.id}>Bookings</button></a>
+                <button class="btn btn-secondary bookingevent" id="bookingevent" data=${element.id}>Bookings</button>
+                <a href="/bookings/${element.id}" style="display:none;"<button class="btn btn-secondary bookingevent" id="bookingevent" data=${element.id}>LBookings</button></a>
                 <button class="btn btn-secondary delevent" id=${element.id}>Delete</button>
                 </span>
                 </td>`);

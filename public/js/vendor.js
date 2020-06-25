@@ -9,6 +9,7 @@ $(document).ready(function () {
     const wphone = $('#winephone-input');
     const wemail = $('#wineemail-input');
 
+
 //Adding Event handlers for adding of wines,wineries and events modals.
     $('body').on('click','.wine-input',function(){
         let wineryID = ($(this).attr("data"));
@@ -258,6 +259,23 @@ $(document).ready(function () {
 
     //###### Editing & Deleting Event ############//
 
+    //###### View Booking ############//
+
+    // $('body').on('click', '#bookingevent', function(){
+    //     let eventid = $(this).attr('data')
+    //     console.log(eventid)
+    //     eventbooking(eventid)
+        
+    // })
+
+    function eventbooking(id){
+        $.get("/api/eventbookings/" + id, function(data){
+            console.log(data)
+        })
+    }
+
+    //###### View Booking ############//
+
     //###### Wineries Create ############//
 
     $.get("/api/user_data").then(function (data) {
@@ -334,14 +352,18 @@ $(document).ready(function () {
             data.forEach(element =>{
                 const tablerow = $("<tr class='winerow'>") ;
                 tablerow.html(`
-                <td class="winetable" id=${element.id} contenteditable="false">${element.winename}</td>
+                <td><img class="image-fluid" src=${element.wineimage} style="max-height:100px;"></td>
+                <td class="winetable" id=${element.id} contenteditable="false">
+                <div>${element.winename}</div>
+                <div>${element.description}</div>
+                </td>
                 <td>${element.variety}</td>
                 <td>${element.year}</td>
-                <td>${element.price}</td>
+                <td>$ ${element.price}</td>
                 <td>
                 <span>
-                <button class="editwine" id="editwine" data=${element.id}>Edit</button>
-                <button class="delwine" id=${element.id}>Delete</button>
+                <button class="btn btn-secondary editwine" id="editwine" data=${element.id}>Edit</button>
+                <button class="btn btn-secondary delwine" id=${element.id}>Delete</button>
                 </span>
                 </td>`);
                 $('#winery' + id).append(tablerow);
@@ -362,9 +384,9 @@ $(document).ready(function () {
                 <td>${element.capacity}</td>
                 <td>
                 <span>
-                <button class="editevent" id="editevent" data=${element.id}>Edit</button>
-                <button class="bookingevent" id="bookingevent" data=${element.id}>Bookings</button>
-                <button class="delevent" id=${element.id}>Delete</button>
+                <button class="btn btn-secondary editevent" id="editevent" data=${element.id}>Edit</button>
+                <a href="/bookings/${element.id}"<button class="btn btn-secondary bookingevent" id="bookingevent" data=${element.id}>Bookings</button></a>
+                <button class="btn btn-secondary delevent" id=${element.id}>Delete</button>
                 </span>
                 </td>`);
                 $('#eventsByWinery' + id).append(tablerow);
@@ -398,7 +420,7 @@ $(document).ready(function () {
                             <p class="card-text">Email: ${data.wineemail}</p>
                             <p class="card-text">Phone: ${data.winephone}</p>
                             <img src="${data.wineryimage}" class="img-thumbnail" alt="winery image">
-                            <div class="card-text">Description</div>
+                            <div class="card-text mt-2">Description</div>
                             <p class="card-text">${data.winerydesc}</p>
                             <button type="submit" class="btn btn-primary wine-input mt-2" data=${data.id}>Add a wine</button>
                             <button type="submit" class="btn btn-primary winery-event mt-2" data=${data.id}>Add a calendar event</button>
@@ -408,6 +430,7 @@ $(document).ready(function () {
                         <table class="table">
                         <thead class="thead-dark">
                             <tr>
+                                <th scope="col">Wine Image</th>
                                 <th scope="col">Wine Name</th>
                                 <th scope="col">Variety</th>
                                 <th scope="col">Year</th>
@@ -419,7 +442,7 @@ $(document).ready(function () {
                         </tbody>
                         </table>                        
                         </div>
-                        <div class="row">
+                        <div class="row mt-3">
                         <table class="table">
                         <thead class="thead-dark">
                             <tr>

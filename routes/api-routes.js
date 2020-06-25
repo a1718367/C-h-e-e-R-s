@@ -166,6 +166,7 @@ module.exports = function (app) {
       winename: req.body.name,
       variety: req.body.variety,
       year: req.body.year,
+      wineimage: req.body.wineimage,
       description: req.body.description,
       price: req.body.price,
     },{
@@ -260,7 +261,21 @@ module.exports = function (app) {
     }).catch(function(err){
       res.json(err);
     })
-  })
+  });
+
+  app.get("/api/eventbookings/:id", function (req,res){
+    db.Booking.findAll({
+      where:{
+        EventId: req.params.id
+      },
+      include: [{model:db.User, attributes:['email']}]
+
+    }).then(function(data){
+      res.json(data);
+    }).catch(function (err){
+      res.status(401).json(err);
+    });
+  });
 
 
     //Delete event
@@ -284,7 +299,6 @@ module.exports = function (app) {
       res.status(401).json(err);
     });
   });
-
 
 
 //********************************/

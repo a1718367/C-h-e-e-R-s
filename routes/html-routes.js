@@ -3,6 +3,8 @@ var sequelize = require("sequelize");
 var db = require("../models");
 // Requiring our custom middleware for checking if a user is logged in
 var isAuthenticated = require("../config/middleware/isAuthenticated");
+const { json } = require("sequelize");
+const { raw } = require("express");
 
 
 module.exports = function (app) {
@@ -54,6 +56,28 @@ module.exports = function (app) {
       })
       console.log(results)
     })
+  });
+
+
+
+  app.get("/bookings/:id", isAuthenticated,function(req,res){
+    db.Booking.findAll({
+      where:{
+        EventId: req.params.id
+      },
+      attributes:['numberbooked'],
+      include: [{model:db.User, attributes:['email']}],
+      raw:true
+    }).then(function(result){
+      const x = JSON.stringify(result);
+      console.log(x)
+      const y = JSON.parse(x)
+      console.log(y)
+      res.render("booking",{data:x})
+      
+    }).catch(function (err){
+      res.status(401).json(err);
+    });
   })
 
 };

@@ -1,0 +1,38 @@
+{{!-- {{#each data}}
+<div>{{numberbooked}}</div>
+<div>{{User.email}}</div>
+{{/each}} --}}
+
+<div id="dta" style="display: none;">{{data}}</div>
+<div class="container mt-5 d-flex justify-content-center">
+
+
+<div id="list"></div>
+</div>
+
+
+<script>
+    const x = document.getElementById('dta').innerHTML;
+    const w = document.getElementById('list');
+    let arr = []
+    
+    const y = JSON.parse(x)
+
+    y.forEach(function(element){
+        var z = Object.values(element)
+        arr.push(z)
+    }
+    )
+    
+    arr.forEach(function(element){
+        var q = document.createElement("h4");
+        let a = document.createTextNode(`Patron: ${element[1]}, Booked for: ${element[0]} `);
+        q.appendChild(a)
+        w.append(q)
+        
+        
+    })
+
+
+
+</script>

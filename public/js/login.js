@@ -39,7 +39,13 @@ $(document).ready(function() {
         // If there's an error, log the error
       })
       .catch(function(err) {
-        console.log(err);
+        console.log(handleLoginErr(err));
       });
+  }
+
+  function handleLoginErr(err) {
+    console.log(err.responseJSON.errors[0].message)
+    $("#alert .msg").text(err.responseJSON.errors[0].message);
+    $("#alert").fadeIn(500);
   }
 });

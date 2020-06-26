@@ -4,6 +4,21 @@ $(document).ready(function() {
   var emailInput = $("input#email-input");
   var passwordInput = $("input#password-input");
 
+  //Slick
+
+  $('.slick').slick({
+    // dots: true,
+    infinite: true,
+    speed: 500,
+    fade: true,
+    cssEase: 'linear',
+    arrow: false,
+    autoplay:true,
+    autoplaySpeed: 2000,
+    prevArrow:$('#prev'),
+    nextArrow:$('#next')
+  });
+
   // When the signup button is clicked, we validate the email and password are not blank
   signUpForm.on("submit", function(event) {
     event.preventDefault();

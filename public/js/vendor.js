@@ -445,11 +445,11 @@ $(document).ready(function () {
         const block = `<div class="card border-dark mb-3">
                 <div class="row">
                 <div class="col-8">
-                <div class="card-header">${data.wineryname}</div>
+                <div class="card-header fblack bgwhite">${data.wineryname}</div>
                 </div>
         
                 <div class="col-4">
-                <div class="container d-flex">
+                <div class="container d-flex bgwhite">
                 <button class="btn btn-outline-dark my-3 ml-auto" id="editwinery" data=${data.id}>Edit Winery</button>
                 </div>
                 

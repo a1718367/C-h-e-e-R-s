@@ -2,6 +2,7 @@
 var db = require("../models");
 var passport = require("../config/passport");
 var sequelize = require("sequelize");
+const { raw } = require("express");
 
 module.exports = function (app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -222,27 +223,6 @@ module.exports = function (app) {
     })
   });
 
-  app.get("/api/eventsbooking/:id", function (req, res) {
-    db.Wineries.findAll({
-      where: {
-        id: req.params.id,
-
-      },
-      include: [
-        {model: db.Event,
-        where:{
-          current: true
-        },
-        include: [
-          {model: db.Booking,attributes:["numberbooked"]}
-        ]
-      }
-      ]
-    }).then(function (result) {
-      res.json(result)
-    })
-  });
-
   app.get("/api/eventdata/:id", (req, res)=>{
     db.Event.findAll({
       where:{
@@ -324,15 +304,40 @@ module.exports = function (app) {
   app.get("/api/bookingnumber/:id", function (req,res){
     db.Booking.findAll({
       where:{
-        EventId: req.params.id
+        EventId: req.params.id,
       },
-      attributes:['numberbooked']
-
+      include: [{model:db.Event, attributes:['capacity']}],
+      attributes:['numberbooked'],
+      raw:true
     }).then(function(data){
-      res.json(data);
+      let cap = parseInt(data[0]["Event.capacity"]);
+      let sum = 0
+      data.forEach(element => {
+        sum += parseInt(element.numberbooked)
+        return sum
+      });
+      let avail = cap - sum;
+      res.send(`${avail}`)
+      // if(avail <= 2){
+      //   res.send("Full")
+      // }else{
+      //   res.send("Available")
+      // }
+      
+      
     }).catch(function (err){
       res.status(401).json(err);
     });
+  });
+
+  app.delete("/api/bookingscancel/:id", function(req, res){
+    db.Booking.destroy({
+      where: {
+        id: req.params.id
+      }
+    }).then(function(result){
+      res.json(result)
+    })
   });
 
 

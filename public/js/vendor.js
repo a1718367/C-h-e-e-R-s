@@ -217,7 +217,7 @@ $(document).ready(function () {
         let x = $(this).attr("data")
         geteventdata(x);
         SubmitEditEvent(x)
-        test(x);
+        
 
     });
 
@@ -269,6 +269,13 @@ $(document).ready(function () {
         eventbooking(eventid);
         $('#editbookingsmodal').modal("show")
         
+        
+    });
+
+    $('body').on('click', "#rmbooking", function(){
+        let bookingid = $(this).attr('data');
+        console.log(bookingid);
+        cancellation(bookingid);
     })
 
     function eventbooking(id){
@@ -294,16 +301,21 @@ $(document).ready(function () {
         <tr>
         <td>${data.User.email}</td>
         <td>${data.numberbooked}</td>
+        <td><button class='btn btn-secondary' id='rmbooking' data=${data.id}>Remove</button>
         </tr>
         `
         return block
     }
 
-    function test(id){
-        $.get("/api/eventsbooking/" + id, function(data){
-            console.log(data)
+    function cancellation(id){
+        $.ajax({
+            method: "DELETE",
+            url: "/api/bookingscancel/" + id
+        }).then(function(result){
+            $('#editbookingsmodal').modal("hide")
         })
-    }
+    };
+
 
     //###### View Booking ############//
 

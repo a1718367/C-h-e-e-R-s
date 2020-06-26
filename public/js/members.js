@@ -30,21 +30,41 @@ $('body').on('click','.bookingbtn',function(){
   console.log(x)
   console.log(memberid)
   // booking(10,memberid,x)
-  eventbooking(x)
+  // eventbooking(x)
+  shownum(x);
 
-  $('form.bookevent').on('submit', function(event){
-    event.preventDefault();
-    const numbooked = $('#numbook-input').val().trim();
-    booking(numbooked,memberid,x)
-    $('#bookingmodal').modal('hide')
-
-  })
   // $('body').on('click','#bookeventmodalbtn',function(){
   //   const numbooked = $('#numbook-input').val().trim()
   //   booking(numbooked,memberid,x)
   // })
 })
   
+function shownum(id){
+$.get('/api/bookingnumber/' +id, function(data){
+  console.log(data)
+  // console.log(data[0]["Event.capacity"])
+  if(data >= 5){
+    eventbooking(id, data)
+    $('#bookeventmodalbtn').on('click', function(event){
+      event.preventDefault();
+      const numbooked = $('#numbook-input').val().trim();
+      if(numbooked <= data){
+        booking(numbooked,memberid,id)
+        $('#bookingmodal').modal('hide')
+        window.location.reload();
+      }else{
+        $('#numalert').text("Not Enough Places")
+      }
+
+  
+    })
+
+  }else{
+    $('#fullybookedalert').text("Event Fully Booked")
+    $('#bookingmodalfull').modal('show')
+  }
+})
+}
 
 
 function booking(numbooked,mid, eid){
@@ -58,20 +78,24 @@ function booking(numbooked,mid, eid){
 }
 
 $('#bookingmodal').on('hidden.bs.modal', function () {
-  $(this).find('form').trigger('reset'); 
+  $(this).find('form').trigger('reset');
+  $(this).find('#placeavail').text("");
+  $(this).find('#numalert').text("");
+
 });
 
-function eventbooking(id){
+function eventbooking(id, num){
   $.get("/api/eventdata/" + id,function(data){
       console.log(data)
-      populateeventbooking(data);
+      populateeventbooking(data, num);
       $('#bookingmodal').modal("show");
 
       
   });
 };
 
-function populateeventbooking(data){
+function populateeventbooking(data, num){
+  $('#placeavail').text(num)
   $('#bookingeventname').text(`${data[0].eventname}`);
   $('#bookingeventdate').text(`${data[0].date}`);
   $('#bookingeventtime').text(`${data[0].time}`);  

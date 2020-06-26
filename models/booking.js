@@ -19,6 +19,7 @@ module.exports = function(sequelize, DataType){
                 allowNull: false
             }
         });
+
     };    
 
     return Booking

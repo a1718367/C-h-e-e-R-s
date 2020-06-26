@@ -302,18 +302,21 @@ module.exports = function (app) {
   });
 
   app.get("/api/bookingnumber/:id", function (req,res){
-    db.Booking.findAll({
+    db.Event.findAll({
       where:{
-        EventId: req.params.id,
+        id: req.params.id,
       },
-      include: [{model:db.Event, attributes:['capacity']}],
-      attributes:['numberbooked'],
+      include: [{model:db.Booking, attributes:['numberbooked']}],
+      attributes:['capacity'],
       raw:true
     }).then(function(data){
-      let cap = parseInt(data[0]["Event.capacity"]);
+      console.log(data[0]["Bookings.numberbooked"])    
+      let cap = parseInt(data[0].capacity);
+      
       let sum = 0
       data.forEach(element => {
-        sum += parseInt(element.numberbooked)
+        let x = element["Bookings.numberbooked"] || 0
+        sum += parseInt(x)
         return sum
       });
       let avail = cap - sum;

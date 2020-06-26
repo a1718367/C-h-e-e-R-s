@@ -45,8 +45,8 @@ $.get('/api/bookingnumber/' +id, function(data){
   // console.log(data[0]["Event.capacity"])
   if(data >= 5){
     eventbooking(id, data)
-    $('#bookeventmodalbtn').on('click', function(event){
-      event.preventDefault();
+    $('body').on('click','#bookeventmodalbtn', function(){
+  
       const numbooked = $('#numbook-input').val().trim();
       if(numbooked <= data){
         booking(numbooked,memberid,id)

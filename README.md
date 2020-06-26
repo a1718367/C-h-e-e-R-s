@@ -24,5 +24,6 @@ Our clients are the Wineries, the wines consumers and vendors of Adelaide. This 
 <img src="./public/img/screenshot.png" alt="screenshot">
 
 # Authors
+PangSzee Ong
 
 

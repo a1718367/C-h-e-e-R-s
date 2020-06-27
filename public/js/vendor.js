@@ -366,13 +366,15 @@ $(document).ready(function () {
         }).then(function (data) {
             console.log(data)
             window.location.reload();
-        }).catch(handleLoginErr);
+        }).catch(function(err){
+            console.log(err)
+        });
     };
 
     function handleLoginErr(err) {
         console.log(err.responseJSON.errors[0].message)
-        // $("#alert .msg").text(err.responseJSON.errors[0].message);
-        // $("#alert").fadeIn(500);
+        $("#alert .msg").text(err.responseJSON.errors[0].message);
+        $("#alert").fadeIn(500);
     };
 
 

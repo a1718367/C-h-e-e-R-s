@@ -12,13 +12,6 @@
     "database": "database_test",
     "host": "127.0.0.1",
     "dialect": "mysql"
-  },
-  "production": {
-    "username": "zcy4cmud9cfoymy4",
-    "password": "aj3dugv8nz0pp7vf",
-    "database": "ulbwuh55bv36gdor",
-    "host": "sq65ur5a5bj7flas.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
-    "dialect": "mysql",
-    "use_env_variable": "JAWSDB_URL"
   }
+
 }

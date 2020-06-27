@@ -239,6 +239,7 @@ module.exports = function (app) {
       time: req.body.time,
       date: req.body.date,
       capacity: req.body.capacity,
+      desc: req.body.desc,
     },{
       where: {
         id: req.params.id

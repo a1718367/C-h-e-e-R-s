@@ -52,13 +52,35 @@
             <h2>Events</h2>
             {{#each data.Events}}
             {{#if current}}
+
+            <div class="card mb-2">
+                <div class="row">
+                    <div class="col-5">
+                      <div class="card-body">
+                        <h5>Details:</h5>
+                        <h5>{{eventname}}</h5>
+            <p class="card-text">Date: {{date}}</p>
+            <p class="card-text">Time: {{time}}</p> 
+                      </div>
+                       
+                    </div>
+                    <div class="col-7">
+                        <div class="card-body">
+                          <div class="row" style="min-height: 60px;">
+                      <p class="card-text">{{desc}}</p>
+                          </div>
+                <div class="row">
+                  <div class="card-body">
+                  <button class="btn btn-primary bookingbtn float-right" data={{id}}>Reservation</button>
+                  </div>
+                </div>            
             
-            <ul class="list-group list-group-flush mb-2">
-                <li class="list-group-item">Name: {{eventname}}</li>
-                <li class="list-group-item">Date: {{date}} </li>
-                <li class="list-group-item">Time: {{time}}</li>
-                <li class="list-group-item"><button class="btn btn-primary bookingbtn" data={{id}}>Reservation</button></li>
-            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>         
+          
             {{/if}}
             {{/each}}
         </div>
@@ -81,7 +103,7 @@
             
             <!-- Modal body -->
             <div class="modal-body">
-              <div>Place Available: <span id="placeavail"></span></div>
+              <div>Places Available: <span id="placeavail"></span></div>
     <form class="bookevent">
       <div class="container my-3">
             <div>Event Name: <span id="bookingeventname"></span></div>

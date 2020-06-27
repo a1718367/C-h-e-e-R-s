@@ -29,7 +29,7 @@ module.exports = function(sequelize, DataType){
         type:DataType.STRING,
         allowNull: false,
         validate: {
-            len: [10,100]
+            len: [10,150]
             }
         },
     price:{

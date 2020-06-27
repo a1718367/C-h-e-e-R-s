@@ -238,6 +238,7 @@ $(document).ready(function () {
         $('#eventtime-input').val(`${data[0].time}`);
         $('#eventdate-input').val(`${data[0].date}`);
         $('#eventcap-input').val(`${data[0].capacity}`);
+        $('#eventcap-input').val(`${data[0].desc}`);
         $('#eventsmodalheader').text("Edit Event");
     };
 
@@ -248,6 +249,7 @@ $(document).ready(function () {
                 time: $('#eventtime-input').val().trim(),
                 date: $('#eventdate-input').val().trim(),
                 capacity: $('#eventcap-input').val().trim(),
+                desc: $('#eventdesc-input').val().trim(),
                 wineryid: id,
             }
             editevent(eventData, id);
@@ -421,7 +423,10 @@ $(document).ready(function () {
 
                 const tablerow = $("<tr>") ;
                 tablerow.html(`
-                <td id=${element.id} contenteditable="false">${element.eventname}</td>
+                <td id=${element.id} contenteditable="false">
+                <div>${element.eventname}</div>
+                <div>${element.desc}</div>
+                </td>
                 <td>${element.time}</td>
                 <td>${element.date}</td>
                 <td>${element.capacity}</td>
@@ -458,7 +463,7 @@ $(document).ready(function () {
     
                <div class="card-body text-dark">                    
                     <div class="row">
-                        <div class="col-sm-12 col-md-4 mb-3" >
+                        <div class="col-sm-12 col-md-3 mb-3" >
                             <h5 class="card-title" data=${data.id}>${data.wineryname}</h5>
                             <p class="card-text">Address: ${data.wineaddress}</p>
                             <p class="card-text">Email: ${data.wineemail}</p>
@@ -469,7 +474,7 @@ $(document).ready(function () {
                             <button type="submit" class="btn btn-primary wine-input mt-2" data=${data.id}>Add a wine</button>
                             <button type="submit" class="btn btn-primary winery-event mt-2" data=${data.id}>Add a calendar event</button>
                         </div>
-                        <div class="col-sm-12 col-md-8"">
+                        <div class="col-sm-12 col-md-9"">
                         <div class="row">
                         <table class="table">
                         <thead class="thead-dark">
@@ -564,11 +569,12 @@ $(document).ready(function () {
             time: $('#eventtime-input').val().trim(),
             date: $('#eventdate-input').val().trim(),
             capacity: $('#eventcap-input').val().trim(),
+            desc: $('#eventdesc-input').val().trim(),
             wineryid: winery,
         }
         console.log(eventData);
 
-        addevent(eventData.eventname,eventData.time,eventData.date,eventData.capacity,eventData.wineryid)
+        addevent(eventData.eventname,eventData.time,eventData.date,eventData.capacity, eventData.desc,eventData.wineryid)
         //$('#eventname-input').val("");
         //$('#eventtime-input').val("");
         //$('#eventdate-input').val("");
@@ -580,13 +586,14 @@ $(document).ready(function () {
 
 
 
-    function addevent(name,time,date,cap,id){
+    function addevent(name,time,date,cap,desc,id){
         console.log("Event Submitted");
             $.post("/api/addEvent/", {
             eventname:name,
             time:time,
             date:date,
             capacity: cap,
+            desc: desc,
             WineryId: id,
         }).then(function(data){
             console.log(data)

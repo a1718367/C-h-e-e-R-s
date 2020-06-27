@@ -27,6 +27,13 @@ module.exports = function(sequelize, DataType){
         type: DataType.BOOLEAN,
         defaultValue: true
         },
+    desc:{
+        type: DataType.STRING,
+        allowNull: false,
+        validate:{
+            len:[10,50]
+        }
+    }
     
     
     

@@ -111,7 +111,7 @@ function populateeventbooking(data, num){
     <div class="col-md-4 card-container mb-2">
     <div class="card-flip">
     <div class="card front">
-    <img class="card-img-top" src="${data.wineryimage}" alt="card image">
+    <img class="card-img-top img-fluid" src="${data.wineryimage}" alt="card image">
     <div class="card-body winerycard text-dark">
     <div class="card-title">${data.wineryname}</div>
     <div class="card-text">${data.winerydesc}</div>
@@ -119,7 +119,7 @@ function populateeventbooking(data, num){
     </div>
     </div>
     <div class="card back">
-    <img class="card-img-top" src="${data.wineryimage}" alt="card image">
+    <img class="card-img-top img-fluid" src="${data.wineryimage}" alt="card image">
     <div class="card-body winerycard text-dark">
     <div class="card-text">
     <div class="card-title">${data.wineryname}</div>

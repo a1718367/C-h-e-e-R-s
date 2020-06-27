@@ -2,14 +2,13 @@
 
 # Client Brief
 
-AS THE Wine lovers
-WHEN I _use the app_ find relevant wine data and find new wine stores in Adelaide.
-I also want to be able to book available wineries events 
-I WANT TO: Know more about the wine industry and local producer.
+AS A Wine lovers
+WHEN I use the site, I want to find relevant wineries, their wines and events available. 
+I also want to be able to book wineries events and being informed of real time number of places remaining helps me with my bookings.
 
-AS THE _vinyard owner_
+AS A Vinyard owner
 I WANT TO _promote my popular wines/vinyards_
-SO I CAN _so that i can reach a larger audience, by enable events boooking and 
+SO I CAN so that I can reach a larger audience, by enable easy events boookings and bring visitor to my winery
 
 # CONCEPT 
 Our clients are the Wineries, the wines consumers and vendors of Adelaide. This platform connects these three words. To bring new wine experiences and foment new connections.

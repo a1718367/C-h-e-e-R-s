@@ -238,7 +238,7 @@ $(document).ready(function () {
         $('#eventtime-input').val(`${data[0].time}`);
         $('#eventdate-input').val(`${data[0].date}`);
         $('#eventcap-input').val(`${data[0].capacity}`);
-        $('#eventcap-input').val(`${data[0].desc}`);
+        $('#eventdesc-input').val(`${data[0].desc}`);
         $('#eventsmodalheader').text("Edit Event");
     };
 
@@ -471,41 +471,44 @@ $(document).ready(function () {
                             <img src="${data.wineryimage}" class="img-thumbnail" alt="winery image">
                             <div class="card-text mt-2">Description</div>
                             <p class="card-text">${data.winerydesc}</p>
-                            <button type="submit" class="btn btn-primary wine-input mt-2" data=${data.id}>Add a wine</button>
-                            <button type="submit" class="btn btn-primary winery-event mt-2" data=${data.id}>Add a calendar event</button>
+                            <button type="submit" class="btn btn-primary wine-input mt-2" data=${data.id}>Add Wine</button>
+                            <button type="submit" class="btn btn-primary winery-event mt-2" data=${data.id}>Add Event</button>
                         </div>
                         <div class="col-sm-12 col-md-9"">
                         <div class="row">
+                        <div class="table-responsive">
                         <table class="table">
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="col">Wine Image</th>
-                                <th scope="col">Wine Name</th>
-                                <th scope="col">Variety</th>
-                                <th scope="col">Year</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Options</th>
+                                <th style="width:10%">Wine Image</th>
+                                <th style="width:30%">Wine Name</th>
+                                <th style="width:10%">Variety</th>
+                                <th style="width:10%">Year</th>
+                                <th style="width:10%">Price</th>
+                                <th style="width:20%" class="algcen">Options</th>
                             </tr>
                         </thead>
                         <tbody id="winery${data.id}">
                         </tbody>
-                        </table>                        
+                        </table>
+                        </div>                  
                         </div>
                         <div class="row mt-3">
+                        <div class="table-responsive">
                         <table class="table">
                         <thead class="thead-dark">
                             <tr>
-                                <th scope="col">Event Name</th>
-                                <th scope="col">Time</th>
-                                <th scope="col">Date</th>
-                                <th scope="col">Capacity</th>
-                                <th scope="col">Options</th>
+                                <th style="width:25%">Event Name</th>
+                                <th style="width:10%">Time</th>
+                                <th style="width:15%">Date</th>
+                                <th style="width:10%">Capacity</th>
+                                <th style="width:30%" class="algcen">Options</th>
                             </tr>
                         </thead>
                         <tbody id="eventsByWinery${data.id}"">
                         </tbody>
                         </table>
-                        
+                        </div>
                         </div>
 
 

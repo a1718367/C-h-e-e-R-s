@@ -41,18 +41,20 @@ $('body').on('click','.bookingbtn',function(){
   
 function shownum(id){
 $.get('/api/bookingnumber/' +id, function(data){
-  console.log(data)
+  const y = parseInt(data)
+  console.log(y, typeof y)
   // console.log(data[0]["Event.capacity"])
-  if(data >= 5){
-    eventbooking(id, data)
+  if(y >= 5){
+    eventbooking(id, y)
     $('body').on('click','#bookeventmodalbtn', function(){
   
       const numbooked = $('#numbook-input').val().trim();
-      if(numbooked <= data){
+      if(numbooked <= y){
         booking(numbooked,memberid,id)
         $('#bookingmodal').modal('hide')
         window.location.reload();
       }else{
+
         $('#numalert').text("Not Enough Places")
       }
 

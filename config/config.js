@@ -1,10 +1,13 @@
-{
+require("dotenv").config();
+//Contains the login detail for various environements. Also contains environment variables to protect sensitive info.
+module.exports = {
   "development": {
-    "username": "root",
-    "password": "1234",
-    "database": "wuber",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": process.env.DBUSERNAME,
+      "password": process.env.DBPASSWORD,
+        "database": process.env.DBNAME,
+          "host": process.env.DBHOST,
+            "port": 3306,
+              "dialect": "mysql"
   },
   "test": {
     "username": "root",

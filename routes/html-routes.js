@@ -14,7 +14,7 @@ module.exports = function (app) {
     if (req.user) {
       res.redirect("/members");
     }
-    res.render("signup")
+    res.sendFile(path.join(__dirname, "../client/build/index.html"));
   });
 
   app.get("/login", function (req, res) {
